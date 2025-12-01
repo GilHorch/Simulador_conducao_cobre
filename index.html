@@ -835,7 +835,7 @@
                     --> 
 
 
-                    
+
                         <button id="randomize-atoms" class="secondary-btn">🎲 Randomizar Elétrons</button>
                         <button id="reset-simulation" class="secondary-btn">🔄 Resetar Simulação</button>
                     </div>
@@ -1706,11 +1706,11 @@
                 electronSpeedValue.textContent = `${this.value}%`;
                 updateElectronSpeeds();
             });
-
+//
             flowIntensitySlider.addEventListener('input', function () {
                 flowIntensityValue.textContent = `${this.value}%`;
             });
-
+//
             // Controles de velocidade
             speedConductionBtn.addEventListener('click', () => setSpeedControl('conduction'));
             speedValenceBtn.addEventListener('click', () => setSpeedControl('valence'));
