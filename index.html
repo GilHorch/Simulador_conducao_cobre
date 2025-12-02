@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -487,9 +488,20 @@
         }
 
         @keyframes pulse-green {
-            0% { opacity: 0.7; box-shadow: 0 0 20px rgba(16, 185, 129, 0.5); }
-            50% { opacity: 1; box-shadow: 0 0 40px rgba(16, 185, 129, 0.7); }
-            100% { opacity: 0.7; box-shadow: 0 0 20px rgba(16, 185, 129, 0.5); }
+            0% {
+                opacity: 0.7;
+                box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+            }
+
+            50% {
+                opacity: 1;
+                box-shadow: 0 0 40px rgba(16, 185, 129, 0.7);
+            }
+
+            100% {
+                opacity: 0.7;
+                box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+            }
         }
 
         .valence-band {
@@ -542,15 +554,23 @@
         }
 
         .free-electron {
-            background: radial-gradient(circle at 4px 4px, #f59e0b, #d97706); /* Amarelo como valência */
+            background: radial-gradient(circle at 4px 4px, #f59e0b, #d97706);
+            /* Amarelo como valência */
             box-shadow: 0 0 15px #f59e0b;
             animation: electron-float 3s infinite ease-in-out;
             z-index: 25;
         }
 
         @keyframes electron-float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
         }
 
         .connection-line {
@@ -608,7 +628,8 @@
         }
 
         .conduction-color {
-            background: #f59e0b; /* Agora amarelo */
+            background: #f59e0b;
+            /* Agora amarelo */
             box-shadow: 0 0 8px #f59e0b;
         }
 
@@ -623,11 +644,13 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <header>
             <h1>Simulador de Condutividade Elétrica - Cobre</h1>
-            <p class="subtitle">Visualize a estrutura atômica e o movimento dos elétrons de valência na rede metálica</p>
+            <p class="subtitle">Visualize a estrutura atômica e o movimento dos elétrons de valência na rede metálica
+            </p>
         </header>
 
         <div class="content">
@@ -650,10 +673,10 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div id="simulation-canvas">
                         <!-- Elementos serão adicionados dinamicamente -->
-                        
+
                         <div class="info-display">
                             <div>
                                 <span class="info-label">Material:</span>
@@ -668,10 +691,11 @@
                                 <span class="info-value" id="free-per-atom">≈1</span>
                             </div>
                         </div>
-                        
+
                         <div class="conduction-info">
                             <h4>💡 Como Funciona a Condução</h4>
-                            <p>Elétrons de valência (amarelos) se movem livremente pela rede metálica, permitindo a condução elétrica.</p>
+                            <p>Elétrons de valência (amarelos) se movem livremente pela rede metálica, permitindo a
+                                condução elétrica.</p>
                         </div>
                     </div>
                 </div>
@@ -698,7 +722,7 @@
                             <button id="speed-inner" class="speed-control-btn">🌀 Internas</button>
                             <button id="speed-all" class="speed-control-btn">🎯 Todas</button>
                         </div>
-                        
+
                         <div class="slider-control">
                             <div class="slider-label">
                                 <span>Velocidade dos Elétrons</span>
@@ -706,7 +730,7 @@
                             </div>
                             <input type="range" id="electron-speed" min="0" max="100" value="70">
                         </div>
-                        
+
                         <div class="electron-legend">
                             <div class="electron-legend-item">
                                 <div class="electron-color conduction-color"></div>
@@ -732,14 +756,16 @@
 
                         <button id="toggle-shells" class="toggle-btn active">🔄 Camadas Internas</button>
                         <button id="toggle-connections" class="toggle-btn active">🔗 Conexões</button>
-                        
+
 
 
                         <!-- Novos botões de visibilidade específicos -->
-                        <button id="toggle-inner-electrons" class="toggle-btn active">🌀 Mostrar Elétrons Internos</button>
-                        <button id="toggle-valence-conduction-electrons" class="toggle-btn active">⚡ Mostrar Elétrons Valência/Condução</button>
-                    
-                    
+                        <button id="toggle-inner-electrons" class="toggle-btn active">🌀 Mostrar Elétrons
+                            Internos</button>
+                        <button id="toggle-valence-conduction-electrons" class="toggle-btn active">⚡ Mostrar Elétrons
+                            Valência/Condução</button>
+
+
                     </div>
 
                     <div class="control-section">
@@ -761,14 +787,14 @@
                                 <p>Excelente condutor elétrico</p>
                             </div>
                         </div>
-                        
+
                         <div class="conductivity-bar">
                             <div class="conductivity-fill copper-conductivity"></div>
                         </div>
                         <div style="text-align: center; color: #94a3b8; font-size: 0.9rem; margin-bottom: 20px;">
                             Condutividade: 98% (58.0 × 10⁶ S/m)
                         </div>
-                        
+
                         <div class="properties-list">
                             <div class="property-item">
                                 <span class="property-name">Número Atômico:</span>
@@ -806,11 +832,11 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const canvas = document.getElementById('simulation-canvas');
             const electronSpeedSlider = document.getElementById('electron-speed');
             const electronSpeedValue = document.getElementById('electron-speed-value');
-            
+
             // Elementos de estatísticas
             const freeElectronCountElement = document.getElementById('free-electron-count');
             const conductivityValueElement = document.getElementById('conductivity-value');
@@ -818,7 +844,7 @@
             const mainMaterialElement = document.getElementById('main-material');
             const valenceCountElement = document.getElementById('valence-count');
             const freePerAtomElement = document.getElementById('free-per-atom');
-            
+
             // Botões de controle
 
 
@@ -827,8 +853,8 @@
             const speedValenceBtn = document.getElementById('speed-valence');
             const speedInnerBtn = document.getElementById('speed-inner');
             const speedAllBtn = document.getElementById('speed-all');
-            
-            
+
+
             const toggleElectronsBtn = document.getElementById('toggle-electrons');
             const toggleConductionBtn = document.getElementById('toggle-conduction');
             const toggleValenceBtn = document.getElementById('toggle-valence');
@@ -840,7 +866,7 @@
 
             const toggleInnerElectronsBtn = document.getElementById('toggle-inner-electrons');
             const toggleValenceConductionElectronsBtn = document.getElementById('toggle-valence-conduction-electrons');
-            
+
 
 
 
@@ -848,7 +874,7 @@
 
             const randomizeAtomsBtn = document.getElementById('randomize-atoms');
             const resetSimulationBtn = document.getElementById('reset-simulation');
-            
+
             // Variáveis de estado
             let animationId = null;
             let electronAngle = 0;
@@ -859,25 +885,25 @@
             let showInnerShells = false;
             let showConnections = true;
             let currentSpeedControl = 'conduction';
-            
+
             // Estados específicos para os novos botões
             let showInnerElectrons = true;
             let showValenceConductionElectrons = true;
-            
+
             // Contadores
             let copperCount = 0;
             let totalFreeElectrons = 0;
             let conductivityPercentage = 98;
-            
+
             const canvasWidth = canvas.offsetWidth;
             const canvasHeight = canvas.offsetHeight;
-            
+
             // Configuração da grade
             const gridSize = 4;
             const atomSpacing = 200;
             const startX = (canvasWidth - (gridSize - 1) * atomSpacing) / 2;
             const startY = (canvasHeight - (gridSize - 1) * atomSpacing) / 2;
-            
+
             // Armazenamento de dados
             const atoms = [];
             const conductionBands = [];
@@ -885,7 +911,7 @@
             const valenceElectrons = []; // Elétrons que ainda estão nas órbitas de valência
             const innerElectrons = []; // Elétrons nas camadas internas
             const connectionLines = [];
-            
+
             // Configurações do cobre
             const copperConfig = {
                 name: 'Cobre',
@@ -902,10 +928,10 @@
                     { radius: 120, electrons: 1, speed: 0.8, type: 'valence' }
                 ]
             };
-            
+
             // Inicializar simulação
             initializeSimulation();
-            
+
             function initializeSimulation() {
                 // Limpar canvas
                 canvas.innerHTML = `
@@ -928,12 +954,12 @@
                         <p>Elétrons de valência (amarelos) se movem livremente pela rede metálica, permitindo a condução elétrica.</p>
                     </div>
                 `;
-                
+
                 // Resetar contadores
                 copperCount = 0;
                 totalFreeElectrons = 0;
                 conductivityPercentage = 98;
-                
+
                 // Resetar arrays
                 atoms.length = 0;
                 conductionBands.length = 0;
@@ -941,37 +967,37 @@
                 valenceElectrons.length = 0;
                 innerElectrons.length = 0;
                 connectionLines.length = 0;
-                
+
                 // Resetar estados de visibilidade
                 showInnerElectrons = true;
                 showValenceConductionElectrons = true;
-                
+
                 // Criar rede de átomos (todos cobre)
                 createAtomNetwork();
-                
+
                 // Criar conexões entre átomos
                 createConnections();
-                
+
                 // Atualizar estatísticas
                 updateStats();
             }
-            
+
             function createAtomNetwork() {
                 for (let row = 0; row < gridSize; row++) {
                     for (let col = 0; col < gridSize; col++) {
                         const centerX = startX + col * atomSpacing;
                         const centerY = startY + row * atomSpacing;
                         const atomId = row * gridSize + col;
-                        
+
                         // Criar átomo de cobre
                         createAtom(centerX, centerY, atomId);
                     }
                 }
-                
+
                 // Atualizar contador
                 copperCount = gridSize * gridSize;
             }
-            
+
             function createAtom(centerX, centerY, atomId) {
                 const materialConfig = copperConfig;
                 const atomData = {
@@ -986,9 +1012,9 @@
                     valenceElectrons: [],
                     innerElectrons: []
                 };
-                
+
                 atoms[atomId] = atomData;
-                
+
                 // Criar container do átomo
                 const container = document.createElement('div');
                 container.className = 'atom';
@@ -997,10 +1023,10 @@
                 container.style.width = '140px';
                 container.style.height = '140px';
                 container.dataset.atomId = atomId;
-                
+
                 canvas.appendChild(container);
                 atomData.container = container;
-                
+
                 // Criar núcleo
                 const nucleus = document.createElement('div');
                 nucleus.className = 'nucleus copper-nucleus';
@@ -1010,7 +1036,7 @@
                 nucleus.style.top = '47.5px';
                 container.appendChild(nucleus);
                 atomData.nucleus = nucleus;
-                
+
                 // Criar camadas eletrônicas
                 materialConfig.electronConfig.forEach((shell, shellIndex) => {
                     // Criar orbital
@@ -1024,18 +1050,18 @@
                         orbital.className = 'inner-shell';
                         orbital.style.display = showInnerShells ? 'block' : 'none';
                     }
-                    
+
                     orbital.style.width = `${shell.radius * 2}px`;
                     orbital.style.height = `${shell.radius * 2}px`;
                     orbital.style.left = `${70 - shell.radius}px`;
                     orbital.style.top = `${70 - shell.radius}px`;
-                    
+
                     container.appendChild(orbital);
                     atomData.electronShells.push(orbital);
-                    
+
                     // Criar elétrons para esta camada
                     const angleStep = (2 * Math.PI) / shell.electrons;
-                    
+
                     for (let i = 0; i < shell.electrons; i++) {
                         const electron = document.createElement('div');
                         if (shell.type === 'valence') {
@@ -1043,23 +1069,23 @@
                         } else {
                             electron.className = 'inner-electron electron';
                         }
-                        
+
                         // Aplicar visibilidade específica
                         if (shell.type === 'valence') {
                             electron.style.opacity = showElectrons && showValenceConductionElectrons ? '1' : '0';
                         } else {
                             electron.style.opacity = showElectrons && showInnerElectrons ? '1' : '0';
                         }
-                        
+
                         const angle = i * angleStep;
                         const x = 70 + shell.radius * Math.cos(angle);
                         const y = 70 + shell.radius * Math.sin(angle);
-                        
+
                         electron.style.left = `${x - 7}px`;
                         electron.style.top = `${y - 7}px`;
-                        
+
                         container.appendChild(electron);
-                        
+
                         const electronData = {
                             element: electron,
                             atomId: atomId,
@@ -1070,9 +1096,9 @@
                             type: shell.type,
                             isFree: false
                         };
-                        
+
                         atomData.electrons.push(electronData);
-                        
+
                         // Armazenar em arrays específicos
                         if (shell.type === 'valence') {
                             atomData.valenceElectrons.push(electronData);
@@ -1083,59 +1109,59 @@
                         }
                     }
                 });
-                
+
                 // Criar camada de condução para este átomo
                 createConductionBand(centerX, centerY, atomId);
-                
+
                 // Criar elétrons livres (elétrons de valência que saltaram para condução)
                 createFreeElectronsForAtom(atomId);
             }
-            
+
             function createConductionBand(centerX, centerY, atomId) {
                 const conductionBand = document.createElement('div');
                 conductionBand.className = 'conduction-band';
                 if (showConductionBand) {
                     conductionBand.classList.add('highlighted');
                 }
-                
+
                 // Camada de condução maior que as outras
                 const conductionRadius = 150;
                 conductionBand.style.width = `${conductionRadius * 2}px`;
                 conductionBand.style.height = `${conductionRadius * 2}px`;
                 conductionBand.style.left = `${centerX - conductionRadius}px`;
                 conductionBand.style.top = `${centerY - conductionRadius}px`;
-                
+
                 canvas.appendChild(conductionBand);
                 conductionBands.push(conductionBand);
             }
-            
+
             function createFreeElectronsForAtom(atomId) {
                 const atom = atoms[atomId];
-                
+
                 // Criar aproximadamente 1 elétron livre por átomo (cobre)
                 for (let i = 0; i < 1; i++) {
                     createFreeElectron(atomId);
                 }
             }
-            
+
             function createFreeElectron(atomId) {
                 const atom = atoms[atomId];
-                
+
                 const freeElectron = document.createElement('div');
                 freeElectron.className = 'free-electron electron';
                 freeElectron.style.opacity = showElectrons && showValenceConductionElectrons ? '1' : '0';
-                
+
                 // Posição aleatória perto do átomo inicial
                 const angle = Math.random() * 2 * Math.PI;
                 const radius = 150 + Math.random() * 20;
                 const x = atom.centerX + radius * Math.cos(angle);
                 const y = atom.centerY + radius * Math.sin(angle);
-                
+
                 freeElectron.style.left = `${x - 7}px`;
                 freeElectron.style.top = `${y - 7}px`;
-                
+
                 canvas.appendChild(freeElectron);
-                
+
                 const electronData = {
                     element: freeElectron,
                     atomId: atomId,
@@ -1152,12 +1178,12 @@
                     endX: x,
                     endY: y
                 };
-                
+
                 freeElectrons.push(electronData);
                 atom.freeElectrons.push(electronData);
                 totalFreeElectrons++;
             }
-            
+
             function createConnections() {
                 // Criar linhas de conexão entre átomos vizinhos
                 atoms.forEach((atom, index) => {
@@ -1166,7 +1192,7 @@
                         const nextAtom = atoms[index + 1];
                         createConnectionLine(atom.centerX, atom.centerY, nextAtom.centerX, nextAtom.centerY);
                     }
-                    
+
                     // Conectar com átomo abaixo
                     if (index + gridSize < atoms.length) {
                         const belowAtom = atoms[index + gridSize];
@@ -1174,24 +1200,24 @@
                     }
                 });
             }
-            
+
             function createConnectionLine(x1, y1, x2, y2) {
                 const line = document.createElement('div');
                 line.className = 'connection-line';
                 line.style.display = showConnections ? 'block' : 'none';
-                
+
                 const length = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
                 const angle = Math.atan2(y2 - y1, x2 - x1);
-                
+
                 line.style.width = `${length}px`;
                 line.style.left = `${x1}px`;
                 line.style.top = `${y1}px`;
                 line.style.transform = `rotate(${angle}rad)`;
-                
+
                 canvas.appendChild(line);
                 connectionLines.push(line);
             }
-            
+
             function updateStats() {
                 // Atualizar elementos
                 freeElectronCountElement.textContent = freeElectrons.length;
@@ -1200,55 +1226,55 @@
                 mainMaterialElement.textContent = copperConfig.name;
                 valenceCountElement.textContent = copperConfig.valenceElectrons;
                 freePerAtomElement.textContent = `≈${copperConfig.freeElectronsPerAtom}`;
-                
+
                 // Cor da condutividade
                 conductivityValueElement.style.color = '#10b981';
             }
-            
+
             function toggleElectronsVisibility() {
                 showElectrons = !showElectrons;
                 updateAllElectronsVisibility();
-                
-                toggleElectronsBtn.textContent = showElectrons ? 
+
+                toggleElectronsBtn.textContent = showElectrons ?
                     '👁️ Ocultar Elétrons' : '👁️ Mostrar Elétrons';
                 toggleElectronsBtn.classList.toggle('active', showElectrons);
             }
-            
+
             function toggleInnerElectronsVisibility() {
                 showInnerElectrons = !showInnerElectrons;
                 updateAllElectronsVisibility();
-                
-                toggleInnerElectronsBtn.textContent = showInnerElectrons ? 
+
+                toggleInnerElectronsBtn.textContent = showInnerElectrons ?
                     '🌀 Ocultar Elétrons Internos' : '🌀 Mostrar Elétrons Internos';
                 toggleInnerElectronsBtn.classList.toggle('active', showInnerElectrons);
             }
-            
+
             function toggleValenceConductionElectronsVisibility() {
                 showValenceConductionElectrons = !showValenceConductionElectrons;
                 updateAllElectronsVisibility();
-                
-                toggleValenceConductionElectronsBtn.textContent = showValenceConductionElectrons ? 
+
+                toggleValenceConductionElectronsBtn.textContent = showValenceConductionElectrons ?
                     '⚡ Ocultar Elétrons Valência/Condução' : '⚡ Mostrar Elétrons Valência/Condução';
                 toggleValenceConductionElectronsBtn.classList.toggle('active', showValenceConductionElectrons);
             }
-            
+
             function updateAllElectronsVisibility() {
                 // Atualizar elétrons livres (condução)
                 freeElectrons.forEach(electron => {
                     electron.element.style.opacity = showElectrons && showValenceConductionElectrons ? '1' : '0';
                 });
-                
+
                 // Atualizar elétrons de valência
                 valenceElectrons.forEach(electron => {
                     electron.element.style.opacity = showElectrons && showValenceConductionElectrons ? '1' : '0';
                 });
-                
+
                 // Atualizar elétrons internos
                 innerElectrons.forEach(electron => {
                     electron.element.style.opacity = showElectrons && showInnerElectrons ? '1' : '0';
                 });
             }
-            
+
 
 
 
@@ -1262,14 +1288,14 @@
 
             function setSpeedControl(controlType) {
                 currentSpeedControl = controlType;
-                
+
                 // Resetar todos os botões
                 [speedConductionBtn, speedValenceBtn, speedInnerBtn, speedAllBtn].forEach(btn => {
                     btn.classList.remove('active');
                 });
-                
+
                 // Ativar botão selecionado
-                switch(controlType) {
+                switch (controlType) {
                     case 'conduction':
                         speedConductionBtn.classList.add('active');
                         electronSpeedSlider.value = 70;
@@ -1287,16 +1313,16 @@
                         electronSpeedSlider.value = 50;
                         break;
                 }
-                
+
                 electronSpeedValue.textContent = `${electronSpeedSlider.value}%`;
                 updateElectronSpeeds();
             }
-            
+
             function updateElectronSpeeds() {
                 const speedMultiplier = electronSpeedSlider.value / 50;
-                
+
                 // Aplicar velocidade baseada no controle selecionado
-                switch(currentSpeedControl) {
+                switch (currentSpeedControl) {
                     case 'conduction':
                         freeElectrons.forEach(electron => {
                             electron.speed = (0.05 + Math.random() * 0.05) * speedMultiplier;
@@ -1325,11 +1351,11 @@
                         break;
                 }
             }
-            
+
             // Função para mover elétrons livremente pela rede
             function moveFreeElectrons() {
                 const speedMultiplier = electronSpeedSlider.value / 50;
-                
+
                 freeElectrons.forEach(electron => {
                     if (!electron.moving && Math.random() < 0.01 * speedMultiplier) {
                         // Decidir aleatoriamente se vai mover para outro átomo
@@ -1338,43 +1364,43 @@
                             prepareElectronMovement(electron, newAtomId);
                         }
                     }
-                    
+
                     if (electron.moving) {
                         // Animar movimento entre átomos
                         electron.movementProgress += 0.02 * speedMultiplier;
-                        
+
                         if (electron.movementProgress >= 1) {
                             electron.moving = false;
                             electron.movementProgress = 0;
                         }
-                        
+
                         const progress = electron.movementProgress;
                         const x = electron.startX + (electron.endX - electron.startX) * progress;
                         const y = electron.startY + (electron.endY - electron.startY) * progress;
-                        
+
                         electron.element.style.left = `${x - 7}px`;
                         electron.element.style.top = `${y - 7}px`;
                     } else {
                         // Movimento orbital normal
                         const atom = atoms[electron.atomId];
                         const newAngle = electron.angle + 0.01 * electron.speed * speedMultiplier * electron.direction;
-                        
+
                         // Posição orbital
                         let x = atom.centerX + electron.radius * Math.cos(newAngle);
                         let y = atom.centerY + electron.radius * Math.sin(newAngle);
-                        
+
                         electron.element.style.left = `${x - 7}px`;
                         electron.element.style.top = `${y - 7}px`;
-                        
+
                         electron.angle = newAngle;
-                        
+
                         // Atualizar ocasionalmente o raio orbital
                         if (Math.random() < 0.005) {
                             electron.radius = 150 + Math.random() * 30;
                         }
                     }
                 });
-                
+
                 // Movimento dos elétrons de valência nas órbitas
                 electronAngle += 0.003 * speedMultiplier;
                 valenceElectrons.forEach(electron => {
@@ -1382,61 +1408,61 @@
                     const newAngle = electron.angle + electronAngle * electron.speed;
                     const x = 70 + electron.radius * Math.cos(newAngle);
                     const y = 70 + electron.radius * Math.sin(newAngle);
-                    
+
                     electron.element.style.left = `${x - 7}px`;
                     electron.element.style.top = `${y - 7}px`;
                 });
-                
+
                 // Movimento dos elétrons internos
                 innerElectrons.forEach(electron => {
                     const atom = atoms[electron.atomId];
                     const newAngle = electron.angle + electronAngle * electron.speed;
                     const x = 70 + electron.radius * Math.cos(newAngle);
                     const y = 70 + electron.radius * Math.sin(newAngle);
-                    
+
                     electron.element.style.left = `${x - 7}px`;
                     electron.element.style.top = `${y - 7}px`;
                 });
             }
-            
+
             function prepareElectronMovement(electron, newAtomId) {
                 electron.moving = true;
                 electron.movementProgress = 0;
                 electron.startX = parseFloat(electron.element.style.left) + 7;
                 electron.startY = parseFloat(electron.element.style.top) + 7;
-                
+
                 const targetAtom = atoms[newAtomId];
                 const angle = Math.random() * 2 * Math.PI;
                 const radius = 150 + Math.random() * 20;
                 electron.endX = targetAtom.centerX + radius * Math.cos(angle);
                 electron.endY = targetAtom.centerY + radius * Math.sin(angle);
-                
+
                 // Atualizar referência do átomo
                 electron.atomId = newAtomId;
             }
-            
+
             // Função de animação principal
             function animate() {
                 moveFreeElectrons();
                 animationId = requestAnimationFrame(animate);
             }
-            
+
             // Atualizar valores dos sliders
-            electronSpeedSlider.addEventListener('input', function() {
+            electronSpeedSlider.addEventListener('input', function () {
                 electronSpeedValue.textContent = `${this.value}%`;
                 updateElectronSpeeds();
             });
-            
+
             // Controles de velocidade
             speedConductionBtn.addEventListener('click', () => setSpeedControl('conduction'));
             speedValenceBtn.addEventListener('click', () => setSpeedControl('valence'));
             speedInnerBtn.addEventListener('click', () => setSpeedControl('inner'));
             speedAllBtn.addEventListener('click', () => setSpeedControl('all'));
-            
+
             // Controles de visibilidade
             toggleElectronsBtn.addEventListener('click', toggleElectronsVisibility);
-            
-            toggleConductionBtn.addEventListener('click', function() {
+
+            toggleConductionBtn.addEventListener('click', function () {
                 showConductionBand = !showConductionBand;
                 conductionBands.forEach(band => {
                     if (showConductionBand) {
@@ -1447,11 +1473,11 @@
                         this.classList.remove('active');
                     }
                 });
-                this.textContent = showConductionBand ? 
+                this.textContent = showConductionBand ?
                     '🔋 Ocultar Condução' : '🔋 Camada de Condução';
             });
-            
-            toggleValenceBtn.addEventListener('click', function() {
+
+            toggleValenceBtn.addEventListener('click', function () {
                 showValenceBand = !showValenceBand;
                 atoms.forEach(atom => {
                     atom.electronShells.forEach(shell => {
@@ -1466,107 +1492,113 @@
                         }
                     });
                 });
-                this.textContent = showValenceBand ? 
+                this.textContent = showValenceBand ?
                     '✨ Ocultar Valência' : '✨ Camada de Valência';
             });
-            
-           toggleShellsBtn.addEventListener('click', function() {
-    showInnerShells = !showInnerShells;
 
-    atoms.forEach(atom => {
-        atom.electronShells.forEach(shell => {
-            if (shell.className.includes('inner-shell')) {
-                shell.style.display = showInnerShells ? 'block' : 'none';
-                shell.classList.toggle('highlighted', showInnerShells);
-            }
-        });
-    });
+            toggleShellsBtn.addEventListener('click', function () {
+                showInnerShells = !showInnerShells;
 
-    // ⭐ Correção importante: aplicar só UMA VEZ
-    this.classList.toggle('active', showInnerShells);
+                atoms.forEach(atom => {
+                    atom.electronShells.forEach(shell => {
+                        if (shell.className.includes('inner-shell')) {
+                            shell.style.display = showInnerShells ? 'block' : 'none';
+                            shell.classList.toggle('highlighted', showInnerShells);
+                        }
+                    });
+                });
 
-    this.textContent = showInnerShells ? 
-        '🔄 Ocultar Internas' : '🔄 Camadas Internas';
-});
-            
-            toggleConnectionsBtn.addEventListener('click', function() {
+                // ⭐ Correção importante: aplicar só UMA VEZ
+                this.classList.toggle('active', showInnerShells);
+
+                this.textContent = showInnerShells ?
+                    '🔄 Ocultar Internas' : '🔄 Camadas Internas';
+            });
+
+            toggleConnectionsBtn.addEventListener('click', function () {
                 showConnections = !showConnections;
+
                 connectionLines.forEach(line => {
                     line.style.display = showConnections ? 'block' : 'none';
                 });
-                this.textContent = showConnections ? 
+
+                this.classList.toggle('active', showConnections);
+
+                this.textContent = showConnections ?
                     '🔗 Ocultar Conexões' : '🔗 Conexões';
             });
-            
+
+
 
             // Novos controles de visibilidade específicos
             toggleInnerElectronsBtn.addEventListener('click', toggleInnerElectronsVisibility);
             toggleValenceConductionElectronsBtn.addEventListener('click', toggleValenceConductionElectronsVisibility);
-            
+
 
             // Botão de randomizar
-            randomizeAtomsBtn.addEventListener('click', function() {
+            randomizeAtomsBtn.addEventListener('click', function () {
                 // Reorganizar posição dos elétrons livres
                 freeElectrons.forEach(electron => {
                     const randomAtomId = Math.floor(Math.random() * atoms.length);
                     const atom = atoms[randomAtomId];
-                    
+
                     electron.atomId = randomAtomId;
                     electron.angle = Math.random() * 2 * Math.PI;
                     electron.radius = 150 + Math.random() * 30;
                     electron.direction = Math.random() > 0.5 ? 1 : -1;
-                    
+
                     const x = atom.centerX + electron.radius * Math.cos(electron.angle);
                     const y = atom.centerY + electron.radius * Math.sin(electron.angle);
-                    
+
                     electron.element.style.left = `${x - 7}px`;
                     electron.element.style.top = `${y - 7}px`;
                 });
             });
-            
+
             // Botão de reset
-            resetSimulationBtn.addEventListener('click', function() {
+            resetSimulationBtn.addEventListener('click', function () {
                 initializeSimulation();
-                
+
                 // Resetar controles de velocidade
                 setSpeedControl('conduction');
-                
+
                 // Resetar visibilidade
                 showElectrons = true;
                 toggleElectronsBtn.textContent = '👁️ Ocultar Elétrons';
                 toggleElectronsBtn.classList.add('active');
-                
+
                 showConductionBand = true;
                 toggleConductionBtn.textContent = '🔋 Ocultar Condução';
                 toggleConductionBtn.classList.add('active');
-                
+
                 showValenceBand = false;
                 toggleValenceBtn.textContent = '✨ Camada de Valência';
                 toggleValenceBtn.classList.remove('active');
-                
+
                 showInnerShells = false;
                 toggleShellsBtn.textContent = '🔄 Camadas Internas';
                 toggleShellsBtn.classList.remove('active');
-                
+
                 showConnections = true;
                 toggleConnectionsBtn.textContent = '🔗 Ocultar Conexões';
                 toggleConnectionsBtn.classList.remove('active');
-                
+
                 showInnerElectrons = true;
                 toggleInnerElectronsBtn.textContent = '🌀 Ocultar Elétrons Internos';
                 toggleInnerElectronsBtn.classList.add('active');
-                
+
                 showValenceConductionElectrons = true;
                 toggleValenceConductionElectronsBtn.textContent = '⚡ Ocultar Elétrons Valência/Condução';
                 toggleValenceConductionElectronsBtn.classList.add('active');
             });
-            
+
             // Configuração inicial
             setSpeedControl('conduction');
-            
+
             // Iniciar animação
             animate();
         });
     </script>
 </body>
+
 </html>
