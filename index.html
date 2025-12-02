@@ -723,7 +723,11 @@
                         <h3 class="section-title">👁️ Controles de Visibilidade</h3>
                         <button id="toggle-electrons" class="toggle-btn active">👁️ Mostrar Elétrons</button>
                         <button id="toggle-conduction" class="toggle-btn active">🔋 Camada de Condução</button>
+
+
                         <button id="toggle-valence" class="toggle-btn">✨ Camada de Valência</button>
+
+
                         <button id="toggle-shells" class="toggle-btn">🔄 Camadas Internas</button>
                         <button id="toggle-connections" class="toggle-btn">🔗 Conexões</button>
                         
@@ -810,17 +814,32 @@
             const freePerAtomElement = document.getElementById('free-per-atom');
             
             // Botões de controle
+
+
+
             const speedConductionBtn = document.getElementById('speed-conduction');
             const speedValenceBtn = document.getElementById('speed-valence');
             const speedInnerBtn = document.getElementById('speed-inner');
             const speedAllBtn = document.getElementById('speed-all');
+            
+            
             const toggleElectronsBtn = document.getElementById('toggle-electrons');
             const toggleConductionBtn = document.getElementById('toggle-conduction');
             const toggleValenceBtn = document.getElementById('toggle-valence');
+
+
             const toggleShellsBtn = document.getElementById('toggle-shells');
             const toggleConnectionsBtn = document.getElementById('toggle-connections');
+
+
             const toggleInnerElectronsBtn = document.getElementById('toggle-inner-electrons');
             const toggleValenceConductionElectronsBtn = document.getElementById('toggle-valence-conduction-electrons');
+            
+
+
+
+
+
             const randomizeAtomsBtn = document.getElementById('randomize-atoms');
             const resetSimulationBtn = document.getElementById('reset-simulation');
             
@@ -1224,6 +1243,17 @@
                 });
             }
             
+
+
+
+
+
+
+
+
+
+
+
             function setSpeedControl(controlType) {
                 currentSpeedControl = controlType;
                 
@@ -1440,7 +1470,21 @@
                     atom.electronShells.forEach(shell => {
                         if (shell.className.includes('inner-shell')) {
                             shell.style.display = showInnerShells ? 'block' : 'none';
+//adicionei aqui
+                                shell.classList.add('highlighted');
+                                this.classList.add('active');
+//adicionei aqui
                         }
+//adicionei aqui
+                        else {
+                                shell.classList.remove('highlighted');
+                                this.classList.remove('active');
+                        }      
+//adicionei aqui
+
+
+
+
                     });
                 });
                 this.textContent = showInnerShells ? 
@@ -1456,10 +1500,12 @@
                     '🔗 Ocultar Conexões' : '🔗 Conexões';
             });
             
+
             // Novos controles de visibilidade específicos
             toggleInnerElectronsBtn.addEventListener('click', toggleInnerElectronsVisibility);
             toggleValenceConductionElectronsBtn.addEventListener('click', toggleValenceConductionElectronsVisibility);
             
+
             // Botão de randomizar
             randomizeAtomsBtn.addEventListener('click', function() {
                 // Reorganizar posição dos elétrons livres
