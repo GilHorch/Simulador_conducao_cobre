@@ -728,12 +728,18 @@
                         <button id="toggle-valence" class="toggle-btn">✨ Camada de Valência</button>
 
 
-                        <button id="toggle-shells" class="toggle-btn">🔄 Camadas Internas</button>
-                        <button id="toggle-connections" class="toggle-btn">🔗 Conexões</button>
+
+
+                        <button id="toggle-shells" class="toggle-btn active">🔄 Camadas Internas</button>
+                        <button id="toggle-connections" class="toggle-btn active">🔗 Conexões</button>
                         
+
+
                         <!-- Novos botões de visibilidade específicos -->
                         <button id="toggle-inner-electrons" class="toggle-btn active">🌀 Mostrar Elétrons Internos</button>
                         <button id="toggle-valence-conduction-electrons" class="toggle-btn active">⚡ Mostrar Elétrons Valência/Condução</button>
+                    
+                    
                     </div>
 
                     <div class="control-section">
@@ -1464,32 +1470,24 @@
                     '✨ Ocultar Valência' : '✨ Camada de Valência';
             });
             
-            toggleShellsBtn.addEventListener('click', function() {
-                showInnerShells = !showInnerShells;
-                atoms.forEach(atom => {
-                    atom.electronShells.forEach(shell => {
-                        if (shell.className.includes('inner-shell')) {
-                            shell.style.display = showInnerShells ? 'block' : 'none';
-//adicionei aqui
-                                shell.classList.add('highlighted');
-                                this.classList.add('active');
-//adicionei aqui
-                        }
-//adicionei aqui
-                        else {
-                                shell.classList.remove('highlighted');
-                                this.classList.remove('active');
-                        }      
-//adicionei aqui
+           toggleShellsBtn.addEventListener('click', function() {
+    showInnerShells = !showInnerShells;
 
+    atoms.forEach(atom => {
+        atom.electronShells.forEach(shell => {
+            if (shell.className.includes('inner-shell')) {
+                shell.style.display = showInnerShells ? 'block' : 'none';
+                shell.classList.toggle('highlighted', showInnerShells);
+            }
+        });
+    });
 
+    // ⭐ Correção importante: aplicar só UMA VEZ
+    this.classList.toggle('active', showInnerShells);
 
-
-                    });
-                });
-                this.textContent = showInnerShells ? 
-                    '🔄 Ocultar Internas' : '🔄 Camadas Internas';
-            });
+    this.textContent = showInnerShells ? 
+        '🔄 Ocultar Internas' : '🔄 Camadas Internas';
+});
             
             toggleConnectionsBtn.addEventListener('click', function() {
                 showConnections = !showConnections;
